@@ -120,6 +120,18 @@ namespace USBHelperLauncher
                 Settings.Save();
             }
 
+            try
+            {
+                MOTD.DisplayIfNeeded(Locale.ChosenLocale);
+            }
+            catch (WebException e)
+            {
+                if (e.Response == null)
+                {
+                    Logger.WriteLine("Could not load message of the day: {0}", e.Message);
+                }
+            }
+
             var certs = new DirectoryInfo("certs");
             if (certs.Exists)
             {
